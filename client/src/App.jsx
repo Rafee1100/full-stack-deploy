@@ -1,16 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [message, setMessage] = useState("")
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api/message")
+      .then((res) => res.json())
+      .then((data) => setMessage(data.message))
+      .catch((err) => {
+        console.error('Error fetching message')
+      })
+  }, [])
 
   return (
     <>
       <h1>Welcome to code with Rafee Frontend</h1>
       <h2>
-        Data
+        Data: {message}
       </h2>
     </>
   )
